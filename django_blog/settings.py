@@ -112,7 +112,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False  # 影响数据里面关于时间字段的时区
 
 
 # Static files (CSS, JavaScript, Images)
