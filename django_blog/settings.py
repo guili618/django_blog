@@ -123,3 +123,7 @@ USE_TZ = False  # 影响数据里面关于时间字段的时区
 STATIC_URL = '/static/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+LOGIN_REDIRECT_URL = 'blog-home'
+LOGIN_URL = 'auth-login'
