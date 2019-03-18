@@ -5,7 +5,8 @@ from .views import (
     PostDetailView,
     PostCreateView,
     PostUpdateView,
-    PostDeleteView
+    PostDeleteView,
+    TableView
 )
 
 urlpatterns = [
@@ -13,11 +14,11 @@ urlpatterns = [
     url(r'^$', PostListView.as_view(),name='blog-home'),
     url(r'^post/(?P<pk>[0-9]+)/$', PostDetailView.as_view(),name='post-detail'),
     url(r'post/add/$', PostCreateView.as_view(), name='post-add'),
-    url(r'post/(?P<pk>[0-9]+)/update$', PostUpdateView.as_view(),\
-                                                            name='post-update'),
-    url(r'post/(?P<pk>[0-9]+)/delete/$', PostDeleteView.as_view(),\
-                                                            name='post-delete'),
+    url(r'post/(?P<pk>[0-9]+)/update$', PostUpdateView.as_view(),name='post-update'),
+    url(r'post/(?P<pk>[0-9]+)/delete/$', PostDeleteView.as_view(),name='post-delete'),
     url(r'^about/', views.about,name='blog-about'),
+    url(r'^table/', TableView.as_view(),name='table'),
+    url(r'^tab/', views.tab,name='table'),
 ]
 '''
 urlpatterns = [

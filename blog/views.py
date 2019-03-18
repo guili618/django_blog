@@ -8,7 +8,10 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from .models import Post
+from .models import Post,PostTable
+import django_tables2 as tables
+from django_tables2.paginators import  LazyPaginator
+from django_tables2 import RequestConfig
 # Create your views here.
 
 
@@ -28,6 +31,7 @@ class PostListView(ListView):
     template_name = 'blog/home.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
     ordering = ['-date_posted']
+    paginate_by = 2
 
 
 class PostDetailView(DetailView):
@@ -67,3 +71,16 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+
+
+class TableView(tables.SingleTableView):
+    table_class = PostTable
+    queryset = Post.objects.all()
+    paginator_class = LazyPaginator
+    template_name = "blog/post_list.html"
+
+
+def tab(request):
+    table = PostTable(Post.objects.all())
+    RequestConfig(request).configure(table)
+    return render(request, 'blog/post_table.html', {'table': table})

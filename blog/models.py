@@ -3,6 +3,9 @@ from django.utils import timezone
 #from django.core.urlresolvers import reverse
 from django.urls import reverse
 from django.contrib.auth.models import User
+
+import django_tables2 as tables
+
 # Create your models here.
 class Post(models.Model):
     title = models.CharField(max_length=100)
@@ -15,3 +18,12 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
+
+
+class PostTable(tables.Table):
+    id = tables.Column()
+    title = tables.Column()
+    class Meta:
+        model = Post
+        attrs = {'class': 'ui selectable celled table'}
+        template_name = 'django_tables2/semantic.html'
