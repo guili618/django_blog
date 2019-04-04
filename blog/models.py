@@ -27,3 +27,13 @@ class PostTable(tables.Table):
         model = Post
         attrs = {'class': 'ui selectable celled table'}
         template_name = 'django_tables2/semantic.html'
+
+
+
+
+class Product(models.Model):
+    name = models.CharField('名称',max_length=255)
+    price = models.DecimalField('价格',max_digits=5, decimal_places=2)
+    description = models.TextField('描述')
+    release_date = models.DateField('发布日期')
+    manufacturer = models.ForeignKey(User)

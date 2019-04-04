@@ -8,12 +8,13 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from .models import Post,PostTable
+
 import django_tables2 as tables
 from django_tables2.paginators import  LazyPaginator
 from django_tables2 import RequestConfig
 # Create your views here.
-
+from .models import Post,PostTable,Product
+from .filters  import ProductFilter
 
 
 def home(request):
@@ -84,3 +85,26 @@ def tab(request):
     table = PostTable(Post.objects.all())
     RequestConfig(request).configure(table)
     return render(request, 'blog/post_table.html', {'table': table})
+
+
+
+# class MyFormView(View):
+    # form_class = MyForm
+    # initial = {'key': 'value'}
+    # template_name = 'form_template.html'
+# 
+    # def get(self, request, *args, **kwargs):
+        # form = self.form_class(initial=self.initial)
+        # return render(request, self.template_name, {'form': form})
+# 
+    # def post(self, request, *args, **kwargs):
+        # form = self.form_class(request.POST)
+        # if form.is_valid():
+            # # <process form cleaned data>
+            # return HttpResponseRedirect('/success/')
+# 
+        # return render(request, self.template_name, {'form': form})
+
+def product_list(request):
+    f = ProductFilter(request.GET, queryset=Product.objects.all())
+    return render(request, 'blog/filter.html', {'filter': f})

@@ -20,16 +20,23 @@ from users import views as user_views
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django_filters.views import FilterView
+
+from users.filters import UserFilter
+
 
 urlpatterns = [
+    url(r'^$', FilterView.as_view(filterset_class=UserFilter, 
+                                           template_name='users/users_list.html'), name='search'),
     url(r'^admin/', admin.site.urls),
-    url(r'', include('blog.urls')),
+    url(r'^blog/', include('blog.urls')),
     url(r'^register/',user_views.register,name='users-register'),
     url(r'^profile/',user_views.profile,name='users-profile'),
     url(r'^login/',auth_views.LoginView.as_view(template_name='users/login.html'),
                                                          name='auth-login'),
     url(r'^logout/',auth_views.LogoutView.as_view(template_name='users/logout.html'),
                                                            name='auth-logout'),
+    url(r'^updateprofile/',user_views.UserUpdateView.as_view(),name='users-UserUpdateView'),
 ]
 
 if settings.DEBUG:

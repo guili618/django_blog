@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^about/', views.about,name='blog-about'),
     url(r'^table/', TableView.as_view(),name='table'),
     url(r'^tab/', views.tab,name='table'),
+    url(r'^list/', views.product_list),
 ]
 '''
 urlpatterns = [

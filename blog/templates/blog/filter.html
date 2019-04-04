@@ -1,0 +1,15 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <form action="" method="get">
+        {{ filter.form|crispy }}
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">搜索</button>
+        </div>
+    </form>
+    {% for obj in filter.qs %}
+    <div class="form-group">
+        <li>{{ obj.name }} - ${{ obj.price }}</li>
+    </div>
+    {% endfor %}
+{% endblock %}
